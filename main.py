@@ -6,6 +6,7 @@
     10 tries total to guess the secret number.
     (Maybe add in 3rd hint option for guessing a digit that is in the number)
 '''
+from random import randint
 
 def gameStart():
     print("I am thinking of a 3-digit number. Try to guess what it is. \nHere are some clues:\n")
@@ -15,8 +16,48 @@ def gameStart():
     print("\tBagels\tNo digit is correct.\n")
     print("I have thought up a number.\n")
     print(" You have 10 guesses to get it.\n")
+    num = str(randint(100, 999))
+    return num
 
 
+#guessing logic handler
+
+def guessing(theNumber):
+    #initialize the guess variable
+    guessNumber = 0
+    print(theNumber)
+    #while there are less then 11 guesses
+    while guessNumber < 10:
+        #print which guess number your on and grab the input
+        guessUser = input(f"Your guess #{guessNumber+1}:\n")
+        guessNumber += 1
+        if guessUser == theNumber:
+            print("You guessed right!")
+            return
+
+        #if they didn't immediately win switch to hints
+        else:
+            hints(theNumber, guessUser)
+
+    print("You Lost!")
+
+
+
+
+#Quit logic
+def gameQuit(gameState):
+    #Set current state just in case
+    shouldQuit = int(input("Would you like to quit? Enter 1 for yes 2 for no:\n"))
+    #This was harder then it looked WHY
+    #Checks User Input
+    if False == ((shouldQuit ==1) or (shouldQuit ==2)):
+        print("didn't work")
+        while False == ((shouldQuit ==1) or (shouldQuit ==2)):
+            shouldQuit = int(input("Invalid Input: Please Input 1 for yes 2 for no:\n"))
+
+    if shouldQuit == 1:
+        stateChange = 'quit'
+    return stateChange
 
 #Main Logic
 def main():
@@ -25,8 +66,9 @@ def main():
     gameState = 'run'
 
     while gameState != 'quit':
-        gameStart()
-        gameState = 'quit'
+        theNumber = gameStart()
+        guessing(theNumber)
+        gameState = gameQuit(gameState)
 
 if __name__ == '__main__':
     main()
