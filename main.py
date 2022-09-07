@@ -23,16 +23,23 @@ def gameStart():
 #Handles the hints portion of the game
 def hints(theNumber, guessUser):
     #Iterate over both strings and see if one matches and that if it matches is it in the same position
+    guessList = []
 
     for x in theNumber:
         if x in guessUser:
             if theNumber.index(x) == guessUser.index(x):
-                return 'Fermi'
+                guessList.append('Fermi')
             else:
-                return 'Pico'
+                guessList.append('Pico')
 
+    if len(guessList) == 0:
+        guessList.append('Bagles')
+        return guessList
+
+    else:
+        return guessList
     #If it is not found Bagel is returned
-    return 'Bagel'
+
 
 
 #guessing logic handler
@@ -56,9 +63,9 @@ def guessing(theNumber):
         #if they didn't immediately win switch to hints
         else:
             #print the hint
-            print(hints(theNumber, guessUser))
+            print(' '.join(map(str, hints(theNumber, guessUser))))
 
-    print("You Lost!")
+    print(f"You Lost! The number was: {theNumber}\n")
 
 
 
