@@ -75,8 +75,8 @@ def gameQuit(gameState):
             shouldQuit = int(input("Invalid Input: Please Input 1 for yes 2 for no:\n"))
 
     if shouldQuit == 1:
-        stateChange = 'quit'
-    return stateChange
+        gameState = 'quit'
+    return gameState
 
 #Main Logic
 def main():
