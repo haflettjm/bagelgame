@@ -20,24 +20,43 @@ def gameStart():
     return num
 
 
+#Handles the hints portion of the game
+def hints(theNumber, guessUser):
+    #Iterate over both strings and see if one matches and that if it matches is it in the same position
+
+    for x in theNumber:
+        if x in guessUser:
+            if theNumber.index(x) == guessUser.index(x):
+                return 'Fermi'
+            else:
+                return 'Pico'
+
+    #If it is not found Bagel is returned
+    return 'Bagel'
+
+
 #guessing logic handler
 
 def guessing(theNumber):
     #initialize the guess variable
     guessNumber = 0
-    print(theNumber)
     #while there are less then 11 guesses
     while guessNumber < 10:
         #print which guess number your on and grab the input
         guessUser = input(f"Your guess #{guessNumber+1}:\n")
+
+        #Increment number of guesses
         guessNumber += 1
+
+        #Checks to see if the user guessed right
         if guessUser == theNumber:
             print("You guessed right!")
             return
 
         #if they didn't immediately win switch to hints
         else:
-            hints(theNumber, guessUser)
+            #print the hint
+            print(hints(theNumber, guessUser))
 
     print("You Lost!")
 
